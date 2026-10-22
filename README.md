@@ -1,2 +1,31 @@
-# ai-development-handbook
-AI开发手册：提炼跨语言开发规范与真实案例，提升 AI 编程质量，逐步形成可执行规则、Skill 与 DSH 插件。
+# AI 开发手册
+
+跨语言 AI 辅助开发检查清单与 DSH bundle。规则按任务风险读取，适用于实现功能、修复缺陷和代码审查；项目约定、用户授权和目标语言工具链优先。
+
+## v0.2.3
+
+- Skill：[`.agents/skills/ai-development-handbook/SKILL.md`](.agents/skills/ai-development-handbook/SKILL.md)
+- DSH 入口：[index.js](index.js) 和 [cordis.patch.yml](cordis.patch.yml)
+- 按需规则：[通用规则与语言案例](.agents/skills/ai-development-handbook/references/通用规则与语言案例.md)、[易错案例与检查方法](.agents/skills/ai-development-handbook/references/易错案例与检查方法.md)
+- 维护记录：[docs/规则来源与维护记录.md](docs/规则来源与维护记录.md)
+- 验证记录：[docs/首版说明与验证.md](docs/首版说明与验证.md)
+
+## 安装与停用
+
+复用 Skill 目录前检查目标项目是否已有 `.agents/skills/ai-development-handbook`；已有同名目录先比较版本，不覆盖。DSH bundle 安装：
+
+```sh
+dsh plugin --profile <profile> add /absolute/path/to/ai-development-handbook-dsh-0.2.3.tgz
+```
+
+停用时在 profile 的 `cordis.patch.yml` 追加 `ai-development-handbook` 的 `disabled: true` 覆盖项；卸载：
+
+```sh
+dsh plugin --profile <profile> remove ai-development-handbook-dsh
+```
+
+未启用 HMR 的 profile 需要重启。安装、停用和卸载影响该 profile 的会话，建议先用隔离 profile 验证。
+
+## 兼容边界
+
+bundle 按 DSH `0.2.0-rc.2` 的本地公开接口和 Node `v24.12.0` 验证；未做默认 coder/creator/team、ACP、profile 安装闭环或在线 LLM 验证。scoped `complete` system prompt 可能排除外部 section。没有跨语言应用 benchmark 或 A/B 对照，不能据此声称减少缺陷。

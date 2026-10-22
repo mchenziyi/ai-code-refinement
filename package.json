@@ -1,0 +1,22 @@
+{
+  "name": "ai-development-handbook-dsh",
+  "version": "0.2.3",
+  "description": "用于编码、修复和审查任务的跨语言 AI 开发检查 DSH bundle",
+  "type": "module",
+  "main": "index.js",
+  "files": [
+    "index.js",
+    "cordis.patch.yml",
+    ".agents/skills/ai-development-handbook/SKILL.md",
+    ".agents/skills/ai-development-handbook/references/易错案例与检查方法.md",
+    ".agents/skills/ai-development-handbook/references/通用规则与语言案例.md"
+  ],
+  "dsh": {
+    "bundle": {
+      "patch": "./cordis.patch.yml"
+    }
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}
