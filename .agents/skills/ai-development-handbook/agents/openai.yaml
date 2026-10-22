@@ -1,6 +1,0 @@
-interface:
-  display_name: "AI 开发手册"
-  short_description: "轻量检查 AI 生成代码的真实质量"
-  default_prompt: "请使用 $ai-development-handbook 按任务风险检查并完成这次跨语言代码改动。"
-policy:
-  allow_implicit_invocation: true

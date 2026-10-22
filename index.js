@@ -3,7 +3,7 @@ import { dirname, join } from "node:path"
 import { fileURLToPath } from "node:url"
 
 const root = dirname(fileURLToPath(import.meta.url))
-const skillPath = join(root, ".agents", "skills", "ai-development-handbook", "SKILL.md")
+const skillPath = join(root, ".agents", "skills", "ai-code-refinement", "SKILL.md")
 
 function withoutFrontmatter(source) {
   if (!source.startsWith("---\n")) return source
@@ -22,9 +22,9 @@ export async function apply(ctx) {
     skill
   ].join("\n\n")
   ctx.effect(() => ctx.systemPrompt.section({
-    name: "ai-development-handbook:core",
+    name: "ai-code-refinement:core",
     order: 450,
     interpolate: false,
     text
-  }), "ai-development-handbook.section()")
+  }), "ai-code-refinement.section()")
 }

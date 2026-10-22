@@ -1,5 +1,5 @@
 {
-  "name": "ai-development-handbook-dsh",
+  "name": "ai-code-refinement-dsh",
   "version": "0.2.3",
   "description": "用于编码、修复和审查任务的跨语言 AI 开发检查 DSH bundle",
   "type": "module",
@@ -7,9 +7,9 @@
   "files": [
     "index.js",
     "cordis.patch.yml",
-    ".agents/skills/ai-development-handbook/SKILL.md",
-    ".agents/skills/ai-development-handbook/references/易错案例与检查方法.md",
-    ".agents/skills/ai-development-handbook/references/通用规则与语言案例.md"
+    ".agents/skills/ai-code-refinement/SKILL.md",
+    ".agents/skills/ai-code-refinement/references/易错案例与检查方法.md",
+    ".agents/skills/ai-code-refinement/references/通用规则与语言案例.md"
   ],
   "dsh": {
     "bundle": {

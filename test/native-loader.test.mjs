@@ -23,7 +23,7 @@ async function rootWithPrompt() {
 }
 
 function handbookSections(root) {
-  return root.systemPrompt.assemble().then((assembly) => assembly.sections.filter((section) => section.name === "ai-development-handbook:core"))
+  return root.systemPrompt.assemble().then((assembly) => assembly.sections.filter((section) => section.name === "ai-code-refinement:core"))
 }
 
 test("native systemPrompt registration is singleton and disposed with its fiber", async () => {
@@ -66,7 +66,7 @@ test("native Loader loads, disables, reloads, and removes the bundle", async () 
 })
 
 test("missing packaged Skill resource marks the plugin fiber failed", async () => {
-  const temp = await mkdtemp(join(tmpdir(), "ai-handbook-missing-"))
+  const temp = await mkdtemp(join(tmpdir(), "ai-code-refinement-missing-"))
   try {
     await cp(join(repoRoot, "index.js"), join(temp, "index.js"))
     await cp(join(repoRoot, "package.json"), join(temp, "package.json"))
