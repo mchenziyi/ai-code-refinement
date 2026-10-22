@@ -1,5 +1,5 @@
 import assert from "node:assert/strict"
-import { cp, mkdtemp, rm } from "node:fs/promises"
+import { cp, mkdir, mkdtemp, readFile, rm } from "node:fs/promises"
 import { tmpdir } from "node:os"
 import { dirname, join, resolve } from "node:path"
 import { fileURLToPath, pathToFileURL } from "node:url"
@@ -77,6 +77,44 @@ test("missing packaged Skill resource marks the plugin fiber failed", async () =
       await root.loader.await()
       const entry = root.loader.resolve("missing")
       assert.equal(entry.fiber.state, 3) // public FiberState.FAILED enum value
+      assert.equal((await handbookSections(root)).length, 0)
+    } finally {
+      await root.fiber.dispose()
+    }
+  } finally {
+    await rm(temp, { recursive: true, force: true })
+  }
+})
+
+
+test("assembled section includes the complete base development rules exactly once", async () => {
+  const root = await rootWithPrompt()
+  try {
+    await root.plugin(handbook)
+    const [section] = await handbookSections(root)
+    const base = (await readFile(join(repoRoot, ".agents/skills/ai-code-refinement/references/general/基础开发规范.md"), "utf8")).trim()
+    assert.equal((await handbookSections(root)).length, 1)
+    assert.ok(section.text.includes(base))
+    assert.equal(section.text.split(base).length - 1, 1)
+  } finally {
+    await root.fiber.dispose()
+  }
+})
+
+test("missing base rules fail the plugin fiber without registering a partial section", async () => {
+  const temp = await mkdtemp(join(tmpdir(), "ai-code-refinement-missing-base-"))
+  try {
+    await cp(join(repoRoot, "index.js"), join(temp, "index.js"))
+    const skillDir = join(temp, ".agents/skills/ai-code-refinement")
+    await mkdir(skillDir, { recursive: true })
+    await cp(join(repoRoot, ".agents/skills/ai-code-refinement/SKILL.md"), join(skillDir, "SKILL.md"))
+    await cp(join(repoRoot, "package.json"), join(temp, "package.json"))
+    const root = await rootWithPrompt()
+    try {
+      await root.plugin(Loader, { baseUrl: pathToFileURL(`${temp}/`).href })
+      await root.loader.create({ id: "missing-base", name: join(temp, "index.js") })
+      await root.loader.await()
+      assert.equal(root.loader.resolve("missing-base").fiber.state, 3)
       assert.equal((await handbookSections(root)).length, 0)
     } finally {
       await root.fiber.dispose()

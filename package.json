@@ -1,19 +1,19 @@
 {
   "name": "ai-code-refinement-dsh",
-  "version": "0.3.0",
-  "description": "用于编码、修复和审查任务的跨语言 AI 开发检查 DSH bundle",
+  "version": "0.4.0",
+  "description": "用于编码前准备与编码中遵循的跨语言 AI 开发规范 DSH bundle",
   "type": "module",
   "main": "index.js",
   "files": [
     "index.js",
     "cordis.patch.yml",
     ".agents/skills/ai-code-refinement/SKILL.md",
-    ".agents/skills/ai-code-refinement/references/易错案例与检查方法.md",
-    ".agents/skills/ai-code-refinement/references/通用规则与语言案例.md",
-    ".agents/skills/ai-code-refinement/references/languages/go/go.md",
-    ".agents/skills/ai-code-refinement/references/languages/python/python.md",
-    ".agents/skills/ai-code-refinement/references/languages/nodejs/nodejs.md",
-    ".agents/skills/ai-code-refinement/references/languages/rust/rust.md"
+    ".agents/skills/ai-code-refinement/references/general/基础开发规范.md",
+    ".agents/skills/ai-code-refinement/references/general/接口与输入.md",
+    ".agents/skills/ai-code-refinement/references/general/错误与资源.md",
+    ".agents/skills/ai-code-refinement/references/general/并发与持久化.md",
+    ".agents/skills/ai-code-refinement/references/general/安全与依赖.md",
+    ".agents/skills/ai-code-refinement/references/general/验证与测试.md"
   ],
   "dsh": {
     "bundle": {

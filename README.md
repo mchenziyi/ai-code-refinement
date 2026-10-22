@@ -1,39 +1,25 @@
 # AI 代码精炼之道
 
-让 AI 写出清晰、简洁、规范、可靠的代码。
+为 AI 辅助开发提供编码前读取、编码中遵循的跨语言开发规范。
 
-跨语言 AI 辅助开发检查清单与 DSH bundle。规则按任务风险读取，适用于实现功能、修复缺陷和代码审查；项目约定、用户授权和目标语言工具链优先。
+规范用于功能实现与缺陷修复过程；项目约定、用户授权和目标语言工具链优先。
 
-## v0.3.0
+## v0.4.0
 
 - Skill：[`.agents/skills/ai-code-refinement/SKILL.md`](.agents/skills/ai-code-refinement/SKILL.md)
 - DSH 入口：[index.js](index.js) 和 [cordis.patch.yml](cordis.patch.yml)
-- 按需规则：[通用规则与语言案例](.agents/skills/ai-code-refinement/references/通用规则与语言案例.md)、[易错案例与检查方法](.agents/skills/ai-code-refinement/references/易错案例与检查方法.md)
-- 语言专项：[`languages/`](.agents/skills/ai-code-refinement/references/languages)，按改动组件的运行目标选读
+- 基础规范：[基础开发规范](.agents/skills/ai-code-refinement/references/general/基础开发规范.md)随 DSH system prompt 注入
+- 场景规范：[接口与输入](.agents/skills/ai-code-refinement/references/general/接口与输入.md)、[错误与资源](.agents/skills/ai-code-refinement/references/general/错误与资源.md)、[并发与持久化](.agents/skills/ai-code-refinement/references/general/并发与持久化.md)、[安全与依赖](.agents/skills/ai-code-refinement/references/general/安全与依赖.md)、[验证与测试](.agents/skills/ai-code-refinement/references/general/验证与测试.md)，实现对应部分前读取
+- 语言专项初稿保留在源码目录，本版不打包或自动路由；待用户指定语言后逐一完善
 - 维护记录：[docs/规则来源与维护记录.md](https://github.com/mchenziyi/ai-code-refinement/blob/main/docs/规则来源与维护记录.md)
 - 验证记录：[docs/首版说明与验证.md](https://github.com/mchenziyi/ai-code-refinement/blob/main/docs/首版说明与验证.md)
-
-## 规则组织
-
-通用规则覆盖命名与复用、合同与兼容、状态与不变量、错误诊断、资源与取消、并发与背压、写入恢复、依赖、注释和行为验证。语言规则只补具体机制，按需读取，不全部注入。
-
-```text
-references/
-├── 通用规则与语言案例.md
-├── 易错案例与检查方法.md
-└── languages/
-    ├── go/go.md
-    ├── python/python.md
-    ├── nodejs/nodejs.md
-    └── rust/rust.md
-```
 
 ## 安装与停用
 
 复用 Skill 目录前检查目标项目是否已有 `.agents/skills/ai-code-refinement`；已有同名目录先比较版本，不覆盖。已安装旧插件时先停用或卸载旧插件，再安装新插件，避免两份规则同时注入；不会自动操作用户 profile。DSH bundle 安装：
 
 ```sh
-dsh plugin --profile <profile> add /absolute/path/to/ai-code-refinement-dsh-0.3.0.tgz
+dsh plugin --profile <profile> add /absolute/path/to/ai-code-refinement-dsh-0.4.0.tgz
 ```
 
 停用时在 profile 的 `cordis.patch.yml` 追加 `ai-code-refinement` 的 `disabled: true` 覆盖项；卸载：

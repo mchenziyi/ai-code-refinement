@@ -4,6 +4,7 @@ import { fileURLToPath } from "node:url"
 
 const root = dirname(fileURLToPath(import.meta.url))
 const skillPath = join(root, ".agents", "skills", "ai-code-refinement", "SKILL.md")
+const baseRulesPath = join(root, ".agents", "skills", "ai-code-refinement", "references", "general", "基础开发规范.md")
 
 function withoutFrontmatter(source) {
   if (!source.startsWith("---\n")) return source
@@ -16,10 +17,12 @@ export const inject = ["systemPrompt"]
 
 export async function apply(ctx) {
   const skill = withoutFrontmatter(await readFile(skillPath, "utf8"))
+  const baseRules = (await readFile(baseRulesPath, "utf8")).trim()
   const resourceBase = dirname(skillPath)
   const text = [
     `手册及 references 已随 Skill 打包，资源根目录为：${resourceBase}。解析 references/... 时以该目录为基准，不要以工作区 cwd 为基准。`,
-    skill
+    skill,
+    baseRules
   ].join("\n\n")
   ctx.effect(() => ctx.systemPrompt.section({
     name: "ai-code-refinement:core",
